@@ -22,9 +22,9 @@ def main():
     while True:
         choice = input("Enter the number of your choice: ")
         if choice == "1":
-            print("Why did the scarecrow win an award? Because he was outstanding in his field!")
+            print("Why did the scarecrow win an award? I literally dont know.")
         elif choice == "2":
-            print("The shortest war in history lasted only 38 minutes!")
+            print("The shortest war in history lasted only 38 minutes")
         elif choice == "3":
             print("The only way to do great work is to love what you do. - Steve Jobs")
         elif choice == "4":
