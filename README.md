@@ -1,4 +1,3 @@
-
 # Investment analysis bot📈
 
 This is a chatbot that will use statistical analysis to review and give recommendations for you based on your recent trading results. Powered by `ChatGPT 4o`⚡
