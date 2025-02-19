@@ -3,11 +3,11 @@
 
 This is a chatbot that will use statistical analysis to review and give recommendations for you based on your recent trading results. Powered by `ChatGPT 4o`⚡
 
-![Logo](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.y45RBSh7-YX4R8cxiot0SAHaE8%26pid%3DApi&f=1&ipt=2ae1650b1e9101e2f0482444a212c133683b20550de3b76cac06c68f4dd8ea53&ipo=images)
-
 <div align="center">
 
-![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/Luis-Rosario-Alers/elite-101-PreWork) [![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0) [![Jira](https://img.shields.io/badge/Jira-0052CC?logo=jira&logoColor=fff)](https://jira.atlassian.com/) [![Miro](https://img.shields.io/badge/Miro-050038?logo=miro&logoColor=fff)](https://miro.com/app/board/uXjVL0uemH0=/?share_link_id=454718694078) ![GitHub Repo stars](https://img.shields.io/github/stars/Luis-Rosario-Alers/elite-101-PreWork) [![Contributors](https://img.shields.io/github/contributors/Luis-Rosario-Alers/elite-101-PreWork)](https://github.com/Luis-Rosario-Alers/elite-101-PreWork/graphs/contributors) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit)
+![Logo](https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.y45RBSh7-YX4R8cxiot0SAHaE8%26pid%3DApi&f=1&ipt=2ae1650b1e9101e2f0482444a212c133683b20550de3b76cac06c68f4dd8ea53&ipo=images)
+
+![GitHub Issues or Pull Requests](https://img.shields.io/github/issues/Luis-Rosario-Alers/elite-101-PreWork) [![AGPL License](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0) ![GitHub Repo stars](https://img.shields.io/github/stars/Luis-Rosario-Alers/elite-101-PreWork) [![Contributors](https://img.shields.io/github/contributors/Luis-Rosario-Alers/elite-101-PreWork)](https://github.com/Luis-Rosario-Alers/elite-101-PreWork/graphs/contributors) [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit)](https://github.com/pre-commit/pre-commit) ![GitHub last commit](https://img.shields.io/github/last-commit/Luis-Rosario-Alers/elite-101-PreWork)
 
 </div>
 
@@ -27,7 +27,11 @@ Please adhere to this project's [code of conduct](.github/CODE_OF_CONDUCT.md)
 
 ## Documentation 📄
 
-For more information on the internals of the project refer to our [Documentation](.github/DEVELOPER.md) (WIP)
+For more information on the internals of the project, refer to our [Documentation](docs/DEVELOPMENT.md) or (WIP)
+
+### Miro board here ---> [![Miro](https://img.shields.io/badge/Miro-050038?logo=miro&logoColor=fff)](https://miro.com/app/board/uXjVL0uemH0=/?share_link_id=454718694078)
+
+### Jira board here ---> [![Jira](https://img.shields.io/badge/Jira-0052CC?logo=jira&logoColor=fff)](https://luisrosarioalers.atlassian.net/jira/software/projects/CP/boards/3)
 
 ## License ©️
 
