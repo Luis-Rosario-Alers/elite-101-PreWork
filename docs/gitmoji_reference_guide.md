@@ -2,6 +2,8 @@
 
 Gitmoji is a markup convention that uses emojis to add clear context to commit messages. Using Gitmoji in your commits helps communicate the intent of changes quickly and effectively.
 
+
+
 ## Common Gitmojis
 
 - ✨ – Introduce new features
