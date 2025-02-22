@@ -1,1 +1,4 @@
-PySide6~=6.8.2.1
+backtesting~=0.6.2
+openai~=1.63.2
+PySide6~=6.8.2
+python-dotenv~=1.0.0
