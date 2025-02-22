@@ -3,6 +3,7 @@
         "AGLP",
         "Alers",
         "Backtesting",
+        "dotenv",
         "Gitflow",
         "Gitmoji",
         "Gitmojis",
