@@ -3,7 +3,6 @@ import os
 import dotenv
 import markdown
 from markdown.extensions.codehilite import CodeHiliteExtension
-from openai import OpenAI
 from PySide6.QtWidgets import (
     QLineEdit,
     QPushButton,
@@ -11,6 +10,8 @@ from PySide6.QtWidgets import (
     QVBoxLayout,
     QWidget,
 )
+
+from src.services.remote_models import RemoteModel
 
 dotenv.load_dotenv("keys.env")
 token = os.getenv("OPEN_API_KEY")
@@ -41,20 +42,14 @@ class ChatWidget(QWidget):
             return
         self.chat_output.append(f"\n**User**: {user_text}")
         self.input_line.clear()
-
-        client = OpenAI(
-            base_url=endpoint,
-            api_key=token,
-        )
-
-        response = client.chat.completions.create(
+        llm_model = RemoteModel(
             model=model_name,
-            messages=[
-                {"role": "user", "content": user_text},
-            ],
+            token=token,
+            prompt=user_text,
+            model_mode="chat",
         )
+        reply = llm_model.response()
 
-        reply = response.choices[0].message.content.strip()
         self.display_markdown(reply)
 
     def display_markdown(self, text):

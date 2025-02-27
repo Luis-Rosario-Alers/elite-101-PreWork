@@ -1,6 +1,10 @@
 from PySide6.QtCore import QFile
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import (
+    QComboBox,
+    QLabel,
+    QPushButton,
+    QSlider,
     QVBoxLayout,
     QWidget,
 )
@@ -22,12 +26,44 @@ class ConfigurationWidget(QWidget):
 
         # Load the UI
         loader = QUiLoader()
-        self.ui = loader.load(ui_file)
-        ui_file.close()  # Close the file after loading
+        self.configuration_widget = loader.load(ui_file)
+        ui_file.close()
 
-        # Set up the layout
+        # Setup connections
         self.layout = QVBoxLayout(self)
-        if self.ui:
-            self.layout.addWidget(self.ui)
-        else:
-            print("Failed to load UI")
+        self.add_github_token_button = self.configuration_widget.findChild(
+            QPushButton, "AddGitHubTokenButton"
+        )
+        self.add_github_token_button_label_indicator = (
+            self.configuration_widget.findChild(
+                QLabel, "AddGitHubTokenLabelIndicator"
+            )
+        )
+        self.remote_model_chooser = self.configuration_widget.findChild(
+            QComboBox, "RemoteModelChooser"
+        )
+        self.language_chooser = self.configuration_widget.findChild(
+            QComboBox, "LanguageChooser"
+        )
+        self.theme_chooser = self.configuration_widget.findChild(
+            QComboBox, "ThemeChooser"
+        )
+        self.back_testing_checkbox = self.configuration_widget.findChild(
+            QPushButton, "BackTestingCheckBox"
+        )
+        self.max_trades_slider = self.configuration_widget.findChild(
+            QSlider, "MaxTradesSlider"
+        )
+        self.risk_tolerance_chooser = self.configuration_widget.findChild(
+            QComboBox, "RiskToleranceChooser"
+        )
+        self.history_days_slider = self.configuration_widget.findChild(
+            QSlider, "HistoryDaysSlider"
+        )
+        self.add_github_token_button.clicked.connect(self.addusertoken)
+
+        self.layout.addWidget(self.configuration_widget)
+
+    def addusertoken(self):
+        print("GitHub token added")
+        self.add_github_token_button_label_indicator.setText("Token added ✅")
