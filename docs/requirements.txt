@@ -6,4 +6,6 @@ openai~=1.63.2
 pandas~=2.2.3
 PySide6~=6.8.2
 python-dotenv~=1.0.0
+qasync~=0.27.1
+requests~=2.32.3
 torch~=2.6.0
