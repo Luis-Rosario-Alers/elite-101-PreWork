@@ -1,6 +1,3 @@
-import os
-
-import dotenv
 import markdown
 from markdown.extensions.codehilite import CodeHiliteExtension
 from PySide6.QtWidgets import (
@@ -13,12 +10,6 @@ from PySide6.QtWidgets import (
 from src.services.models import RemoteModel
 from src.ui.base_widget import BaseWidget
 
-dotenv.load_dotenv("keys.env")
-token = os.getenv("OPEN_API_KEY")
-print(token)
-endpoint = "https://models.inference.ai.azure.com"
-model_name = "gpt-4o-mini"
-
 
 class ChatModel:
     """
@@ -26,32 +17,38 @@ class ChatModel:
     Responsible for interacting with the AI model and managing conversation data
     """
 
-    def __init__(self, api_token=token, model_name=model_name):
-        self.token = api_token
-        self.model_name = model_name
+    def __init__(self, config_model):
+        self.config_model = config_model
+        self.token = self.config_model.github_token
+        self.model_name = self.config_model.remote_model
         self.conversation_history = []  # Store conversation for context
+
+    async def update_token(self, updated_token=None):
+        self.token = updated_token
+
+    @staticmethod
+    async def update_validity(updated_validity=None):
+        if not updated_validity:
+            return "Validity is None"
+        return "Validity: {}".format(updated_validity)
+
+    async def update_remote_model(self, updated_model):
+        self.model_name = updated_model
+        print(f"Chat model updated to: {updated_model}")
 
     async def get_response(self, prompt):
         """
         Get a response from the AI model
-        Returns a dict containing the response text and validity status
+
+        Returns: LLM response: str
         """
-        # Create and call the AI model
         llm_model = RemoteModel(
-            model=self.model_name,
-            token=self.token,
+            config_model=self.config_model,
             prompt=prompt,
-            model_mode="chat",
         )
+
         response = await llm_model.response()
-
-        # Store conversation for history/context
-        self.conversation_history.append({"role": "user", "content": prompt})
-        self.conversation_history.append(
-            {"role": "assistant", "content": response}
-        )
-
-        return {"text": response, "is_valid": llm_model.is_enabled}
+        return response
 
 
 class ChatView(BaseWidget):
@@ -73,19 +70,16 @@ class ChatView(BaseWidget):
         pass
 
     def display_user_message(self, message):
+        """Display the user message in the chat output"""
         self.chat_output.append(f"\n**User**: {message}")
 
     def display_model_response(self, response):
-        """Display model response in the chat output"""
-        if response["is_valid"]:
-            self.render_markdown(response["text"])
-        else:
-            self.chat_output.append("**Model**: Github token is invalid")
-
-    def render_markdown(self, text):
-        """Convert Markdown to HTML and display in chat output"""
+        """
+        Display model response in the chat output
+        Convert Markdown to HTML and display in chat output
+        """
         html_content = markdown.markdown(
-            text,
+            response,
             extensions=[
                 CodeHiliteExtension(linenums=False, css_class="highlight")
             ],
@@ -102,9 +96,10 @@ class ChatView(BaseWidget):
 
 
 class ChatController:
-    def __init__(self, model, view):
+    def __init__(self, model, view, config_model):
         self.view = view
         self.model = model
+        self.config_model = config_model
         self._connect_signals()
 
     def _connect_signals(self):
@@ -117,33 +112,68 @@ class ChatController:
                     "returnPressed",
                     self.handle_send_message,
                 ),
+                (
+                    self.config_model,
+                    "validity_changed",
+                    self.handle_validity_changed,
+                ),
+                (
+                    self.config_model,
+                    "token_changed",
+                    self.handle_token_changed,
+                ),
+                (
+                    self.config_model,
+                    "remote_model_changed",
+                    self.handle_remote_model_changed,
+                ),
             ]
         )
 
+        # Change methods to accept signal parameters
+
+    async def handle_remote_model_changed(self, model):
+        await self.model.update_remote_model(model)
+        # eventually, change the model displayed on the chat widget.
+
+    async def handle_validity_changed(self, is_valid):
+        await self.model.update_validity(is_valid)
+        self.view.display_user_message(
+            f"Token validity changed: {'Valid' if is_valid else 'Invalid'}"
+        )
+
+    async def handle_token_changed(self, token):
+        await self.model.update_token(token)
+        self.view.display_user_message("Token updated!")
+
     async def handle_send_message(self):
         """Handle the send message action"""
-        # Get user input from view
-        user_text = self.view.get_user_input()
-        if not user_text:
-            return
-
-        # Update view with a user message
-        self.view.display_user_message(user_text)
+        user_input = self.view.get_user_input()
+        self.view.display_user_message(user_input)
         self.view.clear_input()
 
-        # Get response from the model
-        response = await self.model.get_response(user_text)
-
-        # Update view with model response
+        response = await self.model.get_response(user_input)
         self.view.display_model_response(response)
+
+    async def handle_error(self, error_message):
+        """Handle errors and display them in the chat output"""
+        self.view.chat_output.append(f"\n**Error**: {error_message}")
 
 
 class ChatWidget(BaseWidget):
-    def __init__(self, /):
+    """
+    CHAT WIDGET: Connects the view, model, and controller.
+    Also contains Configuration Model for updating its state based on config
+    """
+
+    def __init__(self, /, config_model):
         super().__init__()
-        self.model = ChatModel()
+        self.config_model = config_model
+        self.model = ChatModel(self.config_model)
         self.view = ChatView()
-        self.controller = ChatController(self.model, self.view)
+        self.controller = ChatController(
+            self.model, self.view, self.config_model
+        )
 
         self.layout = QVBoxLayout(self)
         self.layout.addWidget(self.view)

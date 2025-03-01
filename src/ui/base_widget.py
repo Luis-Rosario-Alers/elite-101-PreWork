@@ -24,7 +24,8 @@ class BaseWidget(QWidget):
         """Initialize widget state"""
         pass
 
-    def connect_async_signals(self, connections: list):
+    @staticmethod
+    def connect_async_signals(connections: list):
         """
         Connect multiple signals to async slots at once
 

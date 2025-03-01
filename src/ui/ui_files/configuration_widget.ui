@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>679</width>
+    <width>678</width>
     <height>707</height>
    </rect>
   </property>
@@ -253,32 +253,32 @@ padding: 4px;</string>
      <widget class="QComboBox" name="RemoteModelChooser">
       <item>
        <property name="text">
-        <string>OpenAI GPT-4o mini</string>
+        <string>gpt-4o-mini</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>OpenAI GPT-4o</string>
+        <string>gpt-4o</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>OpenAI o1-mini</string>
+        <string>o1-mini </string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>OpenAI o1-preview</string>
+        <string>o1-preview</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Open AI o1</string>
+        <string>o1</string>
        </property>
       </item>
       <item>
        <property name="text">
-        <string>Open AI o3-mini</string>
+        <string>o3-mini</string>
        </property>
       </item>
       <item>

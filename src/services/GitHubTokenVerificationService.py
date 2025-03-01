@@ -1,6 +1,8 @@
 from dataclasses import dataclass
 from typing import Optional
 
+import requests
+
 
 @dataclass
 class TokenVerificationResult:
@@ -9,7 +11,6 @@ class TokenVerificationResult:
     error: Optional[str] = None
 
 
-"""
 class GitHubTokenVerificationService:
     @staticmethod
     async def verify_token(token: str) -> TokenVerificationResult:
@@ -19,7 +20,7 @@ class GitHubTokenVerificationService:
                 "Authorization": f"token {token}",
                 "Accept": "application/vnd.github.v3+json",
             }
-            response = requests.get(url, headers=headers)  # noqa
+            response = requests.get(url, headers=headers, timeout=5)
 
             if response.status_code == 200:
                 data = response.json()
@@ -33,4 +34,3 @@ class GitHubTokenVerificationService:
 
         except requests.RequestException as e:
             return TokenVerificationResult(is_valid=False, error=str(e))
-"""

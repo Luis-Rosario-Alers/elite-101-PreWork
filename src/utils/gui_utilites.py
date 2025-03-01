@@ -1,6 +1,5 @@
 import asyncio
 
-from PySide6.QtCore import Slot
 from PySide6.QtWidgets import QWidget
 
 
@@ -14,7 +13,6 @@ def connect_async(widget: QWidget, signal: str, async_slot: callable) -> None:
         async_slot: The async method to call
     """
 
-    @Slot()
     def signal_wrapper(*args, **kwargs):
         asyncio.create_task(async_slot(*args, **kwargs))
 
